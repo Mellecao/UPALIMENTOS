@@ -73,9 +73,16 @@ function setupLoadingManager() {
   const loadingBar = document.querySelector('.loading-bar');
   const loadingPercentage = document.querySelector('.loading-percentage');
   
+  // Timeout fallback in case of WebGL failure or slow loading
+  const loadingTimeout = setTimeout(() => {
+    console.warn('Loading timeout reached, hiding loading screen');
+    hideLoadingScreen();
+  }, 10000); // 10 seconds maximum
+  
   state.loadingManager = new THREE.LoadingManager(
     // onLoad
     () => {
+      clearTimeout(loadingTimeout);
       setTimeout(() => {
         hideLoadingScreen();
       }, 500);
@@ -89,6 +96,11 @@ function setupLoadingManager() {
     // onError
     (url) => {
       console.error('Error loading:', url);
+      clearTimeout(loadingTimeout);
+      // Still try to show the site even if assets fail
+      setTimeout(() => {
+        hideLoadingScreen();
+      }, 1000);
     }
   );
 }
@@ -116,6 +128,22 @@ function hideLoadingScreen() {
 function initThreeJS() {
   const canvas = document.getElementById('bg-canvas');
   
+  // Check WebGL support
+  try {
+    const testCanvas = document.createElement('canvas');
+    const webglSupported = !!(testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl'));
+    
+    if (!webglSupported) {
+      console.warn('WebGL not supported, using fallback background');
+      createFallbackBackground();
+      return false;
+    }
+  } catch (e) {
+    console.warn('WebGL check failed:', e);
+    createFallbackBackground();
+    return false;
+  }
+  
   // Scene
   state.scene = new THREE.Scene();
   state.scene.background = new THREE.Color(0xFDF6E7);
@@ -126,13 +154,19 @@ function initThreeJS() {
   state.camera.position.z = 25;
   
   // Renderer
-  state.renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: true,
-    alpha: false,
-  });
-  state.renderer.setSize(window.innerWidth, window.innerHeight);
-  state.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  try {
+    state.renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: false,
+    });
+    state.renderer.setSize(window.innerWidth, window.innerHeight);
+    state.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  } catch (e) {
+    console.error('Failed to create WebGL renderer:', e);
+    createFallbackBackground();
+    return false;
+  }
   
   // Lights
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
@@ -145,6 +179,8 @@ function initThreeJS() {
   const directionalLight2 = new THREE.DirectionalLight(0xff6b35, 0.3);
   directionalLight2.position.set(-5, -5, 5);
   state.scene.add(directionalLight2);
+  
+  return true;
 }
 
 // ==========================================================================
@@ -330,8 +366,11 @@ function applyMouseForce() {
 function animate() {
   requestAnimationFrame(animate);
   
+  // Only run if renderer exists
+  if (!state.renderer || !state.scene || !state.camera) return;
+  
   // Update physics
-  if (!state.reducedMotion) {
+  if (!state.reducedMotion && state.engine) {
     Matter.Engine.update(state.engine, 1000 / 60);
     applyMouseForce();
   }
@@ -561,6 +600,8 @@ function initForm() {
 // ==========================================================================
 
 function handleResize() {
+  if (!state.camera || !state.renderer) return;
+  
   const width = window.innerWidth;
   const height = window.innerHeight;
   
@@ -576,16 +617,25 @@ function handleResize() {
 function init() {
   checkPreferences();
   setupLoadingManager();
-  initThreeJS();
-  initPhysics();
-  loadPeanuts();
-  setupMouseInteraction();
+  
+  const webglSuccess = initThreeJS();
+  
+  if (webglSuccess) {
+    initPhysics();
+    loadPeanuts();
+    setupMouseInteraction();
+    animate();
+  } else {
+    // If WebGL fails, hide loading screen after a short delay
+    setTimeout(() => {
+      hideLoadingScreen();
+    }, 1500);
+  }
+  
   initMenu();
   initForm();
   
   window.addEventListener('resize', handleResize);
-  
-  animate();
 }
 
 // Start when DOM is ready
