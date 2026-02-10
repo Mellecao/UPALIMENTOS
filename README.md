@@ -74,12 +74,15 @@ npm run preview
 UPALIMENTOS/
 ├── index.html              # HTML principal com estrutura semântica
 ├── package.json            # Dependências e scripts
-├── Logo up.svg             # Logo da marca
-├── peanut.glb              # Modelo 3D do amendoim
+├── public/                 # Assets públicos (copiados para dist/)
+│   ├── Logo up.svg        # Logo da marca
+│   └── peanut.glb         # Modelo 3D do amendoim (~6.7MB)
 ├── src/
 │   ├── main.js            # JavaScript principal (WebGL, física, animações)
 │   └── styles.css         # Estilos CSS com variáveis e responsividade
-└── README.md              # Este arquivo
+├── README.md              # Este arquivo
+├── ARCHITECTURE.md        # Documentação técnica detalhada
+└── USAGE.md               # Guia de uso e customização
 ```
 
 ## 🛠️ Tecnologias
