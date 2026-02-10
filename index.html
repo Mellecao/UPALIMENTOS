@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="UP Alimentos - Amendoins Premium da Alta Paulista. Energia que eleva o dia.">
+    <title>UP Alimentos - Amendoins Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <img src="/Logo up.svg" alt="UP Alimentos" class="loading-logo-img">
+            </div>
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+            </div>
+            <div class="loading-percentage">0%</div>
+        </div>
+    </div>
+
+    <!-- WebGL Canvas Background -->
+    <canvas id="bg-canvas" class="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Menu principal">
+        <div class="navbar-container">
+            <a href="#hero" class="navbar-logo" aria-label="UP Alimentos - Ir para o início">
+                <img src="/Logo up.svg" alt="UP Alimentos">
+            </a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-overlay">
+                <span class="menu-icon"></span>
+                <span class="menu-icon"></span>
+                <span class="menu-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-labelledby="menu-title">
+        <div class="menu-content">
+            <button class="menu-close" id="menu-close" aria-label="Fechar menu">
+                <span class="close-icon"></span>
+                <span class="close-icon"></span>
+            </button>
+            <h2 id="menu-title" class="sr-only">Menu de navegação</h2>
+            <nav class="menu-nav">
+                <a href="#hero" class="menu-link" data-menu-link>Início</a>
+                <a href="#manifesto" class="menu-link" data-menu-link>Manifesto</a>
+                <a href="#origem" class="menu-link" data-menu-link>Origem</a>
+                <a href="#produtor" class="menu-link" data-menu-link>Amiga do Produtor</a>
+                <a href="#qualidade" class="menu-link" data-menu-link>Qualidade</a>
+                <a href="#lojistas" class="menu-link" data-menu-link>Para Lojistas</a>
+                <a href="#contato" class="menu-link" data-menu-link>Contato</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="section hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Energia que eleva o dia.</h1>
+                    <p class="hero-subtitle">Amendoins premium com origem na Alta Paulista.</p>
+                    <div class="hero-cta">
+                        <a href="#contato" class="btn btn-primary">Quero revender</a>
+                        <a href="#contato" class="btn btn-secondary">Falar com comercial</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Manifesto Section -->
+        <section id="manifesto" class="section manifesto-section">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="section-title">Energia que eleva o cotidiano</h2>
+                    <p class="section-text">
+                        Na UP Alimentos, acreditamos que os pequenos momentos merecem grandes sabores. 
+                        Cada amendoim é cuidadosamente selecionado para levar mais energia e alegria 
+                        para quem busca qualidade em cada mordida.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Origem Section -->
+        <section id="origem" class="section origem-section">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="section-title">Nasceu em Tupã</h2>
+                    <p class="section-text">
+                        Tudo começou com o sonho de um garoto em Tupã, no coração da Alta Paulista. 
+                        O que era um sonho virou empresa, e hoje somos a ponte que conecta produtores 
+                        locais ao varejo em todo Brasil.
+                    </p>
+                    <p class="section-text-small">
+                        A Alta Paulista é reconhecida como uma das principais regiões produtoras de 
+                        amendoim de São Paulo, conhecida pela qualidade excepcional dos seus grãos.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Produtor Section -->
+        <section id="produtor" class="section produtor-section">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="section-title">Amiga do produtor</h2>
+                    <p class="section-text">
+                        Nosso compromisso vai além do produto. Trabalhamos lado a lado com produtores 
+                        locais, garantindo relações justas e fortalecendo o mercado regional.
+                    </p>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🌱</div>
+                            <h3 class="feature-title">Terroir</h3>
+                            <p class="feature-text">Grãos da melhor região produtora</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✨</div>
+                            <h3 class="feature-title">Seleção</h3>
+                            <p class="feature-text">Padrão rigoroso de qualidade</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📍</div>
+                            <h3 class="feature-title">Rastreabilidade</h3>
+                            <p class="feature-text">Origem transparente e segura</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🏆</div>
+                            <h3 class="feature-title">Padrão Premium</h3>
+                            <p class="feature-text">Consistência em cada lote</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Qualidade Section -->
+        <section id="qualidade" class="section qualidade-section">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="section-title">Qualidade que aparece no grão</h2>
+                    <p class="section-text">
+                        Das terras da Alta Paulista, trazemos amendoins com padrão premium. 
+                        Nossa seleção rigorosa garante consistência, sabor e a qualidade que 
+                        seu cliente merece.
+                    </p>
+                    <p class="section-text-small">
+                        São Paulo é o maior produtor nacional de amendoim, responsável por cerca de 86% 
+                        da produção brasileira e principal exportador do país. Essa infraestrutura e 
+                        expertise regional se traduzem em qualidade superior.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lojistas Section -->
+        <section id="lojistas" class="section lojistas-section">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="section-title">Para lojistas e varejo</h2>
+                    <p class="section-text">
+                        Oferecemos muito mais que um produto de qualidade. Trabalhamos junto com você 
+                        para garantir o sucesso no ponto de venda.
+                    </p>
+                    <div class="benefits-grid">
+                        <div class="benefit-item">
+                            <h3 class="benefit-title">Margem atrativa</h3>
+                            <p class="benefit-text">Lucratividade competitiva para seu negócio</p>
+                        </div>
+                        <div class="benefit-item">
+                            <h3 class="benefit-title">Alto giro</h3>
+                            <p class="benefit-text">Produtos que vendem e revendem</p>
+                        </div>
+                        <div class="benefit-item">
+                            <h3 class="benefit-title">Consistência</h3>
+                            <p class="benefit-text">Qualidade garantida em cada entrega</p>
+                        </div>
+                        <div class="benefit-item">
+                            <h3 class="benefit-title">Suporte completo</h3>
+                            <p class="benefit-text">Materiais, displays e apoio de marca</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato Section -->
+        <section id="contato" class="section contato-section">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="section-title">Vamos conversar?</h2>
+                    <p class="section-text">
+                        Entre em contato para conhecer nossas condições comerciais e começar 
+                        uma parceria de sucesso.
+                    </p>
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Nome</label>
+                                <input type="text" id="name" name="name" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" id="email" name="email" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Telefone</label>
+                                <input type="tel" id="phone" name="phone" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="form-label">Cidade</label>
+                                <input type="text" id="city" name="city" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="store-type" class="form-label">Tipo de estabelecimento</label>
+                            <select id="store-type" name="store-type" class="form-input" required>
+                                <option value="">Selecione...</option>
+                                <option value="supermercado">Supermercado</option>
+                                <option value="loja-conveniencia">Loja de Conveniência</option>
+                                <option value="distribuidora">Distribuidora</option>
+                                <option value="atacado">Atacado</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Mensagem</label>
+                            <textarea id="message" name="message" class="form-input form-textarea" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large">Enviar mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <img src="/Logo up.svg" alt="UP Alimentos">
+                    </div>
+                    <p class="footer-text">
+                        UP Alimentos - Amendoins Premium<br>
+                        Tupã, São Paulo - Brasil
+                    </p>
+                    <p class="footer-copyright">
+                        © 2026 UP Alimentos. Todos os direitos reservados.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
